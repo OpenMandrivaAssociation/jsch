@@ -36,7 +36,7 @@
 
 Name:           jsch
 Version:        0.1.34
-Release:        %mkrel 0.0.1
+Release:        %mkrel 0.0.2
 Epoch:          0
 Summary:        Pure Java implementation of SSH2
 Group:          Development/Java
@@ -61,8 +61,6 @@ BuildArch:      noarch
 
 %if %{gcj_support}
 BuildRequires:  java-gcj-compat-devel >= 1.0.31
-Requires(post): java-gcj-compat >= 1.0.31
-Requires(postun): java-gcj-compat >= 1.0.31
 %endif
 Requires:       jzlib >= 0:1.0.5
 
