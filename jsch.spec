@@ -36,7 +36,7 @@
 
 Name:           jsch
 Version:        0.1.36
-Release:        %mkrel 0.0.1
+Release:        %mkrel 0.0.2
 Epoch:          0
 Summary:        Pure Java implementation of SSH2
 Group:          Development/Java
@@ -50,7 +50,7 @@ Source0:        http://osdn.dl.sourceforge.net/sourceforge/jsch/jsch-%{version}.
 Source1:        jsch-MANIFEST.MF
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root
 
-BuildRequires:  jpackage-utils >= 0:1.5
+BuildRequires:  java-rpmbuild >= 0:1.5
 BuildRequires:  java-devel >= 1.4.2
 BuildRequires:  jzlib >= 0:1.0.5
 BuildRequires:  ant
