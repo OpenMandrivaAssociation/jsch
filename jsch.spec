@@ -48,7 +48,6 @@ Source0:        http://osdn.dl.sourceforge.net/sourceforge/jsch/jsch-%{version}.
 # mv META-INF/MANIFEST.MF
 # rmdir META-INF
 Source1:        jsch-MANIFEST.MF
-BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root
 
 BuildRequires:  java-rpmbuild >= 0:1.5
 BuildRequires:  java-devel >= 1.4.2
