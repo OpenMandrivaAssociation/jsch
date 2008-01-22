@@ -54,6 +54,7 @@ BuildRequires:  java-rpmbuild >= 0:1.5
 BuildRequires:  java-devel >= 1.4.2
 BuildRequires:  jzlib >= 0:1.0.5
 BuildRequires:  ant
+BuildRequires:  zip
 
 %if ! %{gcj_support}
 BuildArch:      noarch
@@ -72,8 +73,6 @@ functionality into your own Java programs.
 %package        javadoc
 Summary:        Javadoc for %{name}
 Group:          Development/Java
-Requires(post):   /bin/rm,/bin/ln
-Requires(postun): /bin/rm
 
 %description    javadoc
 %{summary}.
@@ -81,12 +80,9 @@ Requires(postun): /bin/rm
 %package        demo
 Summary:        Examples for %{name}
 Group:          Development/Java
-Requires(post):   /bin/rm,/bin/ln
-Requires(postun): /bin/rm
 
 %description    demo
 %{summary}.
-
 
 %prep
 %setup -q
@@ -98,24 +94,27 @@ export CLASSPATH=$(build-classpath jzlib)
 # inject the OSGi Manifest
 mkdir META-INF
 cp -a %{SOURCE1} META-INF/MANIFEST.MF
-zip dist/lib/%{name}-*.jar META-INF/MANIFEST.MF
+zip dist/lib/%{name}-`date "+%Y%m%d"`.jar META-INF/MANIFEST.MF
+
+export CLASSPATH=${CLASSPATH}:`pwd`/dist/lib/%{name}-`date "+%Y%m%d"`.jar
+(cd examples && %{javac} *.java)
 
 %install
 # jars
 rm -rf $RPM_BUILD_ROOT
-install -Dpm 644 dist/lib/%{name}-*.jar \
+install -Dpm 644 dist/lib/%{name}-`date "+%Y%m%d"`.jar \
   $RPM_BUILD_ROOT%{_javadir}/%{name}-%{version}.jar
 ln -s %{name}-%{version}.jar $RPM_BUILD_ROOT%{_javadir}/%{name}.jar
 
 # javadoc
 install -dm 755 $RPM_BUILD_ROOT%{_javadocdir}/%{name}-%{version}
 cp -pr javadoc/* $RPM_BUILD_ROOT%{_javadocdir}/%{name}-%{version}
-ln -s %{name}-%{version} $RPM_BUILD_ROOT%{_javadocdir}/%{name} # ghost symlink
+ln -s %{name}-%{version} $RPM_BUILD_ROOT%{_javadocdir}/%{name}
 
 # examples
 install -dm 755 $RPM_BUILD_ROOT%{_datadir}/%{name}-%{version}
 cp -pr examples/* $RPM_BUILD_ROOT%{_datadir}/%{name}-%{version}
-ln -s %{name}-%{version} $RPM_BUILD_ROOT%{_datadir}/%{name} # ghost symlink
+ln -s %{name}-%{version} $RPM_BUILD_ROOT%{_datadir}/%{name}
 
 %if %{gcj_support}
 # https://bugzilla.redhat.com/bugzilla/show_bug.cgi?id=234989
@@ -136,15 +135,6 @@ rm -rf $RPM_BUILD_ROOT
 %{clean_gcjdb}
 %endif
 
-%post demo
-rm -f %{_datadir}/%{name}
-ln -s %{name}-%{version} %{_datadir}/%{name}
-
-%postun demo
-if [ "$1" = "0" ]; then
-    rm -f %{_datadir}/%{name}
-fi
-
 %files
 %defattr(0644,root,root,0755)
 %doc LICENSE.txt
@@ -164,4 +154,4 @@ fi
 %files demo
 %defattr(0644,root,root,0755)
 %doc %{_datadir}/%{name}-%{version}
-%ghost %doc %{_datadir}/%{name}
+%doc %{_datadir}/%{name}
