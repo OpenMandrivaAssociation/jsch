@@ -35,14 +35,14 @@
 %define gcj_support %{?_with_gcj_support:1}%{!?_with_gcj_support:%{?_without_gcj_support:0}%{!?_without_gcj_support:%{?_gcj_support:%{_gcj_support}}%{!?_gcj_support:0}}}
 
 Name:           jsch
-Version:        0.1.36
-Release:        %mkrel 0.0.2
+Version:        0.1.37
+Release:        %mkrel 0.0.1
 Epoch:          0
 Summary:        Pure Java implementation of SSH2
 Group:          Development/Java
 License:        BSD-style
 URL:            http://www.jcraft.com/jsch/
-Source0:        http://osdn.dl.sourceforge.net/sourceforge/jsch/jsch-%{version}.zip
+Source0:        http://downloads.sourceforge.net/sourceforge/jsch/jsch-%{version}.zip
 # wget http://download.eclipse.org/tools/orbit/downloads/drops/S200705301823/bundles/com.jcraft.jsch_0.1.31.jar
 # unzip com.jcraft.jsch_0.1.31.jar META-INF/MANIFEST.MF
 # mv META-INF/MANIFEST.MF
