@@ -30,12 +30,10 @@
 
 %define section   free
 
-%define _with_gcj_support 1
-
-%define gcj_support %{?_with_gcj_support:1}%{!?_with_gcj_support:%{?_without_gcj_support:0}%{!?_without_gcj_support:%{?_gcj_support:%{_gcj_support}}%{!?_gcj_support:0}}}
+%define gcj_support 0
 
 Name:           jsch
-Version:        0.1.38
+Version:        0.1.39
 Release:        %mkrel 0.0.1
 Epoch:          0
 Summary:        Pure Java implementation of SSH2
