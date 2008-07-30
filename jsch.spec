@@ -34,18 +34,24 @@
 
 Name:           jsch
 Version:        0.1.39
-Release:        %mkrel 0.0.1
+Release:        %mkrel 1.1.1
 Epoch:          0
 Summary:        Pure Java implementation of SSH2
 Group:          Development/Java
 License:        BSD-style
 URL:            http://www.jcraft.com/jsch/
 Source0:        http://downloads.sourceforge.net/sourceforge/jsch/jsch-%{version}.zip
-# wget http://download.eclipse.org/tools/orbit/downloads/drops/S200705301823/bundles/com.jcraft.jsch_0.1.31.jar
-# unzip com.jcraft.jsch_0.1.31.jar META-INF/MANIFEST.MF
-# mv META-INF/MANIFEST.MF
-# rmdir META-INF
-Source1:        jsch-MANIFEST.MF
+# wget \
+# http://download.eclipse.org/tools/orbit/downloads/drops/R20080611105805/bundles/com.jcraft.jsch_0.1.37.v200803061811.jar
+# unzip com.jcraft.jsch_*.jar META-INF/MANIFEST.MF
+# mv META-INF/MANIFEST.MF .
+# sed -i "/^Name/d" MANIFEST.MF
+# sed -i "/^SHA1/d" MANIFEST.MF
+# dos2unix MANIFEST.MF
+# sed -i "/^$/d" MANIFEST.MF
+# unix2dos MANIFEST.MF
+Source1:        MANIFEST.MF
+
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root
 
 BuildRequires:  java-rpmbuild >= 0:1.5
@@ -91,16 +97,13 @@ export CLASSPATH=$(build-classpath jzlib)
 
 # inject the OSGi Manifest
 mkdir META-INF
-cp -a %{SOURCE1} META-INF/MANIFEST.MF
-zip dist/lib/%{name}-`date "+%Y%m%d"`.jar META-INF/MANIFEST.MF
-
-export CLASSPATH=${CLASSPATH}:`pwd`/dist/lib/%{name}-`date "+%Y%m%d"`.jar
-(cd examples && %{javac} *.java)
+cp %{SOURCE1} META-INF
+zip dist/lib/%{name}-*.jar META-INF/MANIFEST.MF
 
 %install
 # jars
 rm -rf $RPM_BUILD_ROOT
-install -Dpm 644 dist/lib/%{name}-`date "+%Y%m%d"`.jar \
+install -Dpm 644 dist/lib/%{name}-*.jar \
   $RPM_BUILD_ROOT%{_javadir}/%{name}-%{version}.jar
 ln -s %{name}-%{version}.jar $RPM_BUILD_ROOT%{_javadir}/%{name}.jar
 
@@ -114,13 +117,7 @@ install -dm 755 $RPM_BUILD_ROOT%{_datadir}/%{name}-%{version}
 cp -pr examples/* $RPM_BUILD_ROOT%{_datadir}/%{name}-%{version}
 ln -s %{name}-%{version} $RPM_BUILD_ROOT%{_datadir}/%{name}
 
-%if %{gcj_support}
-# https://bugzilla.redhat.com/bugzilla/show_bug.cgi?id=234989
-%ifnarch ia64
-%{_bindir}/aot-compile-rpm
-%endif 
-%endif
-
+%{gcj_compile}
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -137,12 +134,7 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(0644,root,root,0755)
 %doc LICENSE.txt
 %{_javadir}/*.jar
-%if %{gcj_support}
-%ifnarch ia64
-%dir %{_libdir}/gcj/%{name}
-%attr(-,root,root) %{_libdir}/gcj/%{name}/*
-%endif
-%endif
+%{gcj_files}
 
 %files javadoc
 %defattr(0644,root,root,0755)
