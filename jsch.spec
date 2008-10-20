@@ -33,8 +33,8 @@
 %define gcj_support 0
 
 Name:           jsch
-Version:        0.1.39
-Release:        %mkrel 1.1.1
+Version:        0.1.40
+Release:        %mkrel 0.0.0
 Epoch:          0
 Summary:        Pure Java implementation of SSH2
 Group:          Development/Java
