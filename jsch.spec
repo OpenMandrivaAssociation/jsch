@@ -33,7 +33,7 @@
 %define gcj_support 0
 
 Name:           jsch
-Version:        0.1.40
+Version:        0.1.41
 Release:        %mkrel 0.0.0
 Epoch:          0
 Summary:        Pure Java implementation of SSH2
@@ -70,8 +70,8 @@ BuildRequires:  java-gcj-compat-devel >= 1.0.31
 Requires:       jzlib >= 0:1.0.5
 
 %description
-JSch allows you to connect to an sshd server and use port forwarding, 
-X11 forwarding, file transfer, etc., and you can integrate its 
+JSch allows you to connect to an sshd server and use port forwarding,
+X11 forwarding, file transfer, etc., and you can integrate its
 functionality into your own Java programs.
 
 %package        javadoc
@@ -93,7 +93,7 @@ Group:          Development/Java
 
 %build
 export CLASSPATH=$(build-classpath jzlib)
-%{ant} dist javadoc 
+%{ant} dist javadoc
 
 # inject the OSGi Manifest
 mkdir META-INF
