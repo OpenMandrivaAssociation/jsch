@@ -34,7 +34,7 @@
 
 Name:           jsch
 Version:        0.1.41
-Release:        %mkrel 0.0.0
+Release:        %mkrel 0.0.1
 Epoch:          0
 Summary:        Pure Java implementation of SSH2
 Group:          Development/Java
