@@ -28,21 +28,16 @@
 # OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #
 
-%define section   free
-
-%define gcj_support 0
-
 Name:           jsch
-Version:        0.1.41
-Release:        %mkrel 0.0.3
-Epoch:          0
+Version:        0.1.44
+Release:        3
 Summary:        Pure Java implementation of SSH2
 Group:          Development/Java
-License:        BSD-style
+License:        BSD
 URL:            http://www.jcraft.com/jsch/
-Source0:        http://downloads.sourceforge.net/sourceforge/jsch/jsch-%{version}.zip
+Source0:        http://download.sourceforge.net/sourceforge/jsch/jsch-%{version}.zip
 # wget \
-# http://download.eclipse.org/tools/orbit/downloads/drops/R20080611105805/bundles/com.jcraft.jsch_0.1.37.v200803061811.jar
+# http://download.eclipse.org/tools/orbit/downloads/drops/R20090825191606/bundles/com.jcraft.jsch_0.1.41.v200903070017.jar
 # unzip com.jcraft.jsch_*.jar META-INF/MANIFEST.MF
 # mv META-INF/MANIFEST.MF .
 # sed -i "/^Name/d" MANIFEST.MF
@@ -52,31 +47,26 @@ Source0:        http://downloads.sourceforge.net/sourceforge/jsch/jsch-%{version
 # unix2dos MANIFEST.MF
 Source1:        MANIFEST.MF
 
-BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root
-
-BuildRequires:  java-rpmbuild >= 0:1.5
+BuildRequires:  jpackage-utils >= 0:1.5
 BuildRequires:  java-devel >= 1.4.2
 BuildRequires:  jzlib >= 0:1.0.5
 BuildRequires:  ant
 BuildRequires:  zip
 
-%if ! %{gcj_support}
 BuildArch:      noarch
-%endif
 
-%if %{gcj_support}
-BuildRequires:  java-gcj-compat-devel >= 1.0.31
-%endif
 Requires:       jzlib >= 0:1.0.5
+Requires:       jpackage-utils
 
 %description
-JSch allows you to connect to an sshd server and use port forwarding,
-X11 forwarding, file transfer, etc., and you can integrate its
+JSch allows you to connect to an sshd server and use port forwarding, 
+X11 forwarding, file transfer, etc., and you can integrate its 
 functionality into your own Java programs.
 
 %package        javadoc
 Summary:        Javadoc for %{name}
 Group:          Development/Java
+Requires:       jpackage-utils
 
 %description    javadoc
 %{summary}.
@@ -88,12 +78,13 @@ Group:          Development/Java
 %description    demo
 %{summary}.
 
+
 %prep
 %setup -q
 
 %build
 export CLASSPATH=$(build-classpath jzlib)
-%{ant} dist javadoc
+ant dist javadoc 
 
 # inject the OSGi Manifest
 mkdir META-INF
@@ -104,8 +95,7 @@ zip dist/lib/%{name}-*.jar META-INF/MANIFEST.MF
 # jars
 rm -rf $RPM_BUILD_ROOT
 install -Dpm 644 dist/lib/%{name}-*.jar \
-  $RPM_BUILD_ROOT%{_javadir}/%{name}-%{version}.jar
-ln -s %{name}-%{version}.jar $RPM_BUILD_ROOT%{_javadir}/%{name}.jar
+  $RPM_BUILD_ROOT%{_javadir}/%{name}.jar
 
 # javadoc
 install -dm 755 $RPM_BUILD_ROOT%{_javadocdir}/%{name}-%{version}
@@ -117,31 +107,22 @@ install -dm 755 $RPM_BUILD_ROOT%{_datadir}/%{name}-%{version}
 cp -pr examples/* $RPM_BUILD_ROOT%{_datadir}/%{name}-%{version}
 ln -s %{name}-%{version} $RPM_BUILD_ROOT%{_datadir}/%{name}
 
-%{gcj_compile}
-
 %clean
 rm -rf $RPM_BUILD_ROOT
 
-%if %{gcj_support}
-%post
-%{update_gcjdb}
-
-%postun
-%{clean_gcjdb}
-%endif
-
 %files
-%defattr(0644,root,root,0755)
-%doc LICENSE.txt
+%defattr(-,root,root,-)
 %{_javadir}/*.jar
-%{gcj_files}
+%doc LICENSE.txt
 
 %files javadoc
-%defattr(0644,root,root,0755)
-%doc %{_javadocdir}/%{name}-%{version}
-%doc %{_javadocdir}/%{name}
+%defattr(-,root,root,-)
+%doc %{_javadocdir}/%{name}*
+%doc LICENSE.txt
 
 %files demo
-%defattr(0644,root,root,0755)
-%doc %{_datadir}/%{name}-%{version}
-%doc %{_datadir}/%{name}
+%defattr(-,root,root,-)
+%doc %{_datadir}/%{name}*
+%doc LICENSE.txt
+
+
