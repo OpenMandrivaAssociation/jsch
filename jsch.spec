@@ -30,7 +30,7 @@
 
 Name:           jsch
 Version:        0.1.44
-Release:        3
+Release:        5
 Summary:        Pure Java implementation of SSH2
 Group:          Development/Java
 License:        BSD
