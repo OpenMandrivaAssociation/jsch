@@ -93,22 +93,22 @@ zip dist/lib/%{name}-*.jar META-INF/MANIFEST.MF
 
 %install
 # jars
-rm -rf $RPM_BUILD_ROOT
+rm -rf %{buildroot}
 install -Dpm 644 dist/lib/%{name}-*.jar \
-  $RPM_BUILD_ROOT%{_javadir}/%{name}.jar
+  %{buildroot}%{_javadir}/%{name}.jar
 
 # javadoc
-install -dm 755 $RPM_BUILD_ROOT%{_javadocdir}/%{name}-%{version}
-cp -pr javadoc/* $RPM_BUILD_ROOT%{_javadocdir}/%{name}-%{version}
-ln -s %{name}-%{version} $RPM_BUILD_ROOT%{_javadocdir}/%{name}
+install -dm 755 %{buildroot}%{_javadocdir}/%{name}-%{version}
+cp -pr javadoc/* %{buildroot}%{_javadocdir}/%{name}-%{version}
+ln -s %{name}-%{version} %{buildroot}%{_javadocdir}/%{name}
 
 # examples
-install -dm 755 $RPM_BUILD_ROOT%{_datadir}/%{name}-%{version}
-cp -pr examples/* $RPM_BUILD_ROOT%{_datadir}/%{name}-%{version}
-ln -s %{name}-%{version} $RPM_BUILD_ROOT%{_datadir}/%{name}
+install -dm 755 %{buildroot}%{_datadir}/%{name}-%{version}
+cp -pr examples/* %{buildroot}%{_datadir}/%{name}-%{version}
+ln -s %{name}-%{version} %{buildroot}%{_datadir}/%{name}
 
 %clean
-rm -rf $RPM_BUILD_ROOT
+rm -rf %{buildroot}
 
 %files
 %defattr(-,root,root,-)
