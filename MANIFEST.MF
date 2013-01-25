@@ -4,9 +4,9 @@ Bundle-SymbolicName: com.jcraft.jsch
 Bundle-ManifestVersion: 2
 Bundle-Name: %bundleName
 Bundle-Localization: plugin
-Bundle-Version: 0.1.37.v200803061811
+Bundle-Version: 0.1.49.v201301252149
 Bundle-ClassPath: .
-Bundle-Vendor: %venderName
+Bundle-Vendor: OpenMandriva
 Export-Package: com.jcraft.jsch,com.jcraft.jsch.jce;x-internal:=true,c
  om.jcraft.jsch.jcraft;x-internal:=true,com.jcraft.jsch.jgss;x-interna
  l:=true
