@@ -1,7 +1,7 @@
 Summary:        Pure Java implementation of SSH2
 Name:           jsch
 Version:        0.1.49
-Release:        0.0.5
+Release:        0.0.6
 Group:          Development/Java
 License:        BSD-style
 Url:            http://www.jcraft.com/jsch/
