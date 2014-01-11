@@ -1,12 +1,15 @@
 Manifest-Version: 1.0
-Bundle-RequiredExecutionEnvironment: J2SE-1.4
-Bundle-SymbolicName: com.jcraft.jsch
 Bundle-ManifestVersion: 2
 Bundle-Name: %bundleName
+Bundle-SymbolicName: com.jcraft.jsch
+Bundle-Version: 0.1.50
+Bundle-Vendor: %venderName
 Bundle-Localization: plugin
-Bundle-Version: 0.1.49.v201301252149
-Bundle-ClassPath: .
-Bundle-Vendor: OpenMandriva
-Export-Package: com.jcraft.jsch,com.jcraft.jsch.jce;x-internal:=true,c
- om.jcraft.jsch.jcraft;x-internal:=true,com.jcraft.jsch.jgss;x-interna
- l:=true
+Export-Package: com.jcraft.jsch;version="0.1.50",
+ com.jcraft.jsch.jce;version="0.1.50";x-internal:=true,
+ com.jcraft.jsch.jcraft;version="0.1.50";x-internal:=true,
+ com.jcraft.jsch.jgss;version="0.1.50";x-internal:=true
+Bundle-RequiredExecutionEnvironment: J2SE-1.4
+Created-By: 1.4.0 (Sun Microsystems Inc.)
+
+
