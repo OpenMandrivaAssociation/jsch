@@ -30,11 +30,11 @@
 #
 
 Name:           jsch
-Version:        0.1.50
-Release:        2.1%{?dist}
+Version:        0.1.51
+Release:        3.1
 Epoch:          0
 Summary:        Pure Java implementation of SSH2
-
+Group:		Development/Java
 License:        BSD
 URL:            http://www.jcraft.com/jsch/
 Source0:        http://download.sourceforge.net/sourceforge/jsch/jsch-%{version}.zip
@@ -116,11 +116,8 @@ install -d -m 755 $RPM_BUILD_ROOT%{_mavenpomdir}
 install -p -m 644 %{SOURCE3} $RPM_BUILD_ROOT%{_mavenpomdir}/JPP-%{name}.pom
 %add_maven_depmap
 
-%files
-%{_javadir}/*.jar
+%files -f .mfiles
 %doc LICENSE.txt
-%{_mavenpomdir}/JPP-%{name}.pom
-%{_mavendepmapfragdir}/%{name}
 
 %files javadoc
 %doc %{_javadocdir}/%{name}*
