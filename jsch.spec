@@ -31,7 +31,7 @@
 
 Name:           jsch
 Version:        0.1.51
-Release:        3.3
+Release:        3.4
 Epoch:          0
 Summary:        Pure Java implementation of SSH2
 Group:		Development/Java
