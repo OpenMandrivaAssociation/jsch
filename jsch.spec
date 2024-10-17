@@ -36,7 +36,7 @@ Epoch:          0
 Summary:        Pure Java implementation of SSH2
 Group:		Development/Java
 License:        BSD
-URL:            http://www.jcraft.com/jsch/
+URL:            https://www.jcraft.com/jsch/
 Source0:        http://download.sourceforge.net/sourceforge/jsch/jsch-%{version}.zip
 # wget \
 # http://download.eclipse.org/tools/orbit/downloads/drops/R20090825191606/bundles/com.jcraft.jsch_0.1.41.v200903070017.jar
